@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: Elo Calculator
-Plugin URI: http://matthewgruman.com/elo
-Description: A plugin to calculate Elo rankings for backgammon clubs
-Version: 0.1.1b
-Author: Matthew Gruman
-Author URI: http://matthewgruman.com
+Plugin Name: Elo Rating
+Plugin URI: https://github.com/dmagur/eloplugin
+Description: A plugin to calculate Elo rankings for list of players
+Version: 0.1
+Author: Dmitry Magur
+Author URI: http://evaxsoft.com
 License: GPL2
 */
 add_action( 'admin_menu', 'my_plugin_menu' );
@@ -258,15 +258,13 @@ function my_plugin_options() {
 	
 	if (isset($_REQUEST['submit']))
 	{ // calculate Elo
-        var_dump($_REQUEST);
 		$errors = array();
 		// IDs
 
         if (isset($_REQUEST['winner_name']) and $_REQUEST['winner_name'])
         {
-            #var_dump($wpdb->escape($_REQUEST['winner_name']));
             $winner = $wpdb->get_row("SELECT * FROM $table WHERE fn = '".$wpdb->escape($_REQUEST['winner_name'])."'");
-            #var_dump($winner);
+
             if (!$winner->id)
             {
                 $wpdb->insert(
